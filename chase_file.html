@@ -5,7 +5,7 @@
 
     <script>
         function breakLine() {
-            var strToBreak = document.getElementById("chaseline").textContent.trim()
+            var strToBreak = document.getElementById("chaseline").value.trim()
             var output = "<pre>"
             output += "RowType                      :" + strToBreak.substring(0, 1) + " <br>"
             output += "DivisionNumber               :" + strToBreak.substring(1, 11) + " <br>"
@@ -16,7 +16,7 @@
             output += "AccountNumber                :" + strToBreak.substring(37, 56) + " <br>"
             output += "ExpirationDate               :" + strToBreak.substring(56, 60) + " <br>"
             output += "Amount                       :" + strToBreak.substring(60, 72) + " <br>"
-            output += "CurrencyCode                 :" + strToBreak.substring(72, 75) + " <br>"
+            output += "CurrencyCode                 :" + strToBreak.substring(72, 75) + "(" + getCurrencyCode(strToBreak.substring(72, 75)) + ") <br>"
             output += "ResponseReasonCode           :" + strToBreak.substring(75, 78) + " <br>"
 
             output += "TransactionType              :" + strToBreak.substring(78, 79) + " <br>"
@@ -36,6 +36,16 @@
             document.getElementById("output").innerHTML = output
 
 
+        }
+
+        function getCurrencyCode(code) {
+            if (code == "840") return "USD"
+            else if (code == "826") return "GBP"
+            else if (code == "978") return "EUR"
+            else if (code == "036") return "AUD"
+            else if (code == "356") return "INR"
+            else if (code == "124") return "CAD"
+            else return ""
         }
     </script>
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
