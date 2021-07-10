@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create Google Calendar Link</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<script>
+	function createLink() {
+		var urlStr = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+		urlStr += "&text="
+		urlStr += $('#text').val();
+		urlStr += "&details="
+		urlStr += $('#details').val();
+		urlStr += "&location="
+		urlStr += $('#location').val();
+		
+		$('#output').html('<a target="_blank" href='+urlStr+'>' + urlStr +'</a>')
+	}
+</script>
+<body>
+
+<div class="container">
+
+	https://calendar.google.com/calendar/render?action=TEMPLATE&
+	text=Birthday&
+	dates=20201231T193000Z/20201231T223000Z&
+	details=With%20clowns%20and%20stuff&
+	location=North%20Pole
+  <h2>Generate a google calendar invite link</h2>
+  <form>
+    <div class="form-group">
+      <label for="text">Text:</label>
+      <input type="text" class="form-control" id="text" placeholder="Enter the title for the invite" name="text">
+    </div>
+    <div class="form-group">
+      <label for="startdate">Date and Time:</label>
+      <input type="date" class="form-control" id="startdate">
+      <input type="time" class="form-control" id="starttime">
+      <label for="startdate">Date and Time:</label>
+      <input type="date" class="form-control" id="enddate">
+      <input type="time" class="form-control" id="endtime">
+    </div>
+    <div class="form-group">
+      <label for="details">Details:</label>
+      <input type="details" class="form-control" id="details" placeholder="Enter event details" name="details">
+    </div>
+    <div class="form-group">
+      <label for="location">Details:</label>
+      <input type="location" class="form-control" id="location" placeholder="Enter Location" name="location">
+    </div>
+	<div id="output">
+		Click below button to generate link
+	</div>
+    <button type="button" onClick="createLink()" class="btn btn-info">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
