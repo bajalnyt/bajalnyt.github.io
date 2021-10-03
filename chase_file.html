@@ -7,11 +7,23 @@
         function breakLine() {
             var content = document.getElementById("chaseline").value.trim()
             var orderIdOnly = document.getElementById("orderIdOnly").checked
+            var formatForSql = document.getElementById("formatForSql").checked
+            if(formatForSql) {
+                orderIdOnly = true
+                document.getElementById("orderIdOnly").checked = true
+            }
             var output = "<pre>"
             strsToBreak = content.split(/\n/)
             for (const strToBreak of strsToBreak) {
                 if(orderIdOnly) {
-                    output += "MerchantOrderNumber          :" + strToBreak.substring(11, 33) + " <br>"
+                    if(formatForSql) {
+                        output += "'"
+                    }
+                    output += strToBreak.substring(11, 33)
+                    if(formatForSql) {
+                        output += "',"
+                    }
+                    output += "<br>"
                 } else {
                     output += "RowType                      :" + strToBreak.substring(0, 1) + " <br>"
                     output += "DivisionNumber               :" + strToBreak.substring(1, 11) + " <br>"
@@ -35,8 +47,9 @@
 
                     output += "EncryptionFlag               :" + strToBreak.substring(96, 99) + " <br>"
                     output += "SplitTenderIndicator         :" + strToBreak.substring(103, 104) + " <br>"
+                    output += "-------------------------------------------------------------------------------<br>"
                 }
-                output += "-------------------------------------------------------------------------------<br>"
+
             }
             output += "</pre>"
 
@@ -66,7 +79,8 @@
             <textarea rows="10" id="chaseline"
                 cols="100">S00000676233b4857b43263532bf4ab90DCVI443059VNQMWA0296   0623000000000400840   2                 204</textarea><br><br>
             <button class="pure-button" onClick="breakLine()">Break Line</button>
-            <label>Show Order Id Only</label>&nbsp;&nbsp;<input type="checkbox" id ="orderIdOnly">
+            <div style="float: left"></div><label>Show Order Id Only</label>&nbsp;&nbsp;<input type="checkbox" id ="orderIdOnly" onClick="breakLine()">
+            <div style="float: left"></div><label>Format for SQL</label>&nbsp;&nbsp;<input type="checkbox" id ="formatForSql" onClick="breakLine()">
             <div id="output"></div>
         </div>
     </div>
