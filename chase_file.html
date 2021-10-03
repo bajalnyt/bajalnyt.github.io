@@ -5,37 +5,42 @@
 
     <script>
         function breakLine() {
-            var strToBreak = document.getElementById("chaseline").value.trim()
+            var content = document.getElementById("chaseline").value.trim()
+            var orderIdOnly = document.getElementById("orderIdOnly").checked
             var output = "<pre>"
-            output += "RowType                      :" + strToBreak.substring(0, 1) + " <br>"
-            output += "DivisionNumber               :" + strToBreak.substring(1, 11) + " <br>"
-            output += "MerchantOrderNumber          :" + strToBreak.substring(11, 33) + " <br>"
-            output += "ActionCode                   :" + strToBreak.substring(33, 35) + " <br>"
-            output += "MOP                          :" + strToBreak.substring(35, 37) + " <br>"
+            strsToBreak = content.split(/\n/)
+            for (const strToBreak of strsToBreak) {
+                if(orderIdOnly) {
+                    output += "MerchantOrderNumber          :" + strToBreak.substring(11, 33) + " <br>"
+                } else {
+                    output += "RowType                      :" + strToBreak.substring(0, 1) + " <br>"
+                    output += "DivisionNumber               :" + strToBreak.substring(1, 11) + " <br>"
+                    output += "MerchantOrderNumber          :" + strToBreak.substring(11, 33) + " <br>"
+                    output += "ActionCode                   :" + strToBreak.substring(33, 35) + " <br>"
+                    output += "MOP                          :" + strToBreak.substring(35, 37) + " <br>"
 
-            output += "AccountNumber                :" + strToBreak.substring(37, 56) + " <br>"
-            output += "ExpirationDate               :" + strToBreak.substring(56, 60) + " <br>"
-            output += "Amount                       :" + strToBreak.substring(60, 72) + " <br>"
-            output += "CurrencyCode                 :" + strToBreak.substring(72, 75) + "(" + getCurrencyCode(strToBreak.substring(72, 75)) + ") <br>"
-            output += "ResponseReasonCode           :" + strToBreak.substring(75, 78) + " <br>"
+                    output += "AccountNumber                :" + strToBreak.substring(37, 56) + " <br>"
+                    output += "ExpirationDate               :" + strToBreak.substring(56, 60) + " <br>"
+                    output += "Amount                       :" + strToBreak.substring(60, 72) + " <br>"
+                    output += "CurrencyCode                 :" + strToBreak.substring(72, 75) + "(" + getCurrencyCode(strToBreak.substring(72, 75)) + ") <br>"
+                    output += "ResponseReasonCode           :" + strToBreak.substring(75, 78) + " <br>"
 
-            output += "TransactionType              :" + strToBreak.substring(78, 79) + " <br>"
-            output += "CsvResponse                  :" + strToBreak.substring(79, 80) + " <br>"
+                    output += "TransactionType              :" + strToBreak.substring(78, 79) + " <br>"
+                    output += "CsvResponse                  :" + strToBreak.substring(79, 80) + " <br>"
 
-            output += "ResponseDate                 :" + strToBreak.substring(80, 86) + " <br>"
-            output += "AuthCode                     :" + strToBreak.substring(86, 92) + " <br>"
-            output += "AVSResponseCode              :" + strToBreak.substring(92, 94) + " <br>"
-            output += "PaymentIndicator             :" + strToBreak.substring(95, 96) + " <br>"
+                    output += "ResponseDate                 :" + strToBreak.substring(80, 86) + " <br>"
+                    output += "AuthCode                     :" + strToBreak.substring(86, 92) + " <br>"
+                    output += "AVSResponseCode              :" + strToBreak.substring(92, 94) + " <br>"
+                    output += "PaymentIndicator             :" + strToBreak.substring(95, 96) + " <br>"
 
-            output += "EncryptionFlag               :" + strToBreak.substring(96, 99) + " <br>"
-            output += "SplitTenderIndicator         :" + strToBreak.substring(103, 104) + " <br>"
-
-
-            output += "</pre"
+                    output += "EncryptionFlag               :" + strToBreak.substring(96, 99) + " <br>"
+                    output += "SplitTenderIndicator         :" + strToBreak.substring(103, 104) + " <br>"
+                }
+                output += "-------------------------------------------------------------------------------<br>"
+            }
+            output += "</pre>"
 
             document.getElementById("output").innerHTML = output
-
-
         }
 
         function getCurrencyCode(code) {
@@ -57,10 +62,11 @@
 <body>
     <div style="text-align: center;margin-top: 45px;">
         <div style="display: inline-block; text-align: left;">
-            <label>Paste Chase Line here</label><br><br>
-            <textarea rows="2" id="chaseline"
+            <label>Paste Chase Line(s) here. Each pasted line needs to be the standard 120 characters</label><br><br>
+            <textarea rows="10" id="chaseline"
                 cols="100">S00000676233b4857b43263532bf4ab90DCVI443059VNQMWA0296   0623000000000400840   2                 204</textarea><br><br>
             <button class="pure-button" onClick="breakLine()">Break Line</button>
+            <label>Show Order Id Only</label>&nbsp;&nbsp;<input type="checkbox" id ="orderIdOnly">
             <div id="output"></div>
         </div>
     </div>
