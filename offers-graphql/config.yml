@@ -1,0 +1,38 @@
+# To fetch schema from
+introspection: https://offers.dev.nyt.net/graphql
+
+servers: # same format as for OpenAPI Specification
+  - url: https://dev-server.com
+    description: Dev
+  - url: https://prod-server.com
+    description: Prod
+
+info: # same format as for OpenAPI Specification
+  title: Offer Management System
+  description: The Offer Management system enables stakeholders to create, edit, remove, and search for NYT subscription offers for both digital (via Plato) and HD (via Aristo) within the Omelette platform so that we can serve the appropriate products and prices to our consumers to grow the NYT business.
+
+  # define your domains by providing a set of usecases
+domains:
+  - name: Top Level Menu Section # Name of the domain
+    description: Description # Description of the domain
+    usecases:
+      - name: Offer # Operation name
+        description: Get an offer by id # Opearation description
+        query: query.offer # Query example - fetching single field
+      #  select: field1 field2 # select only specific sub fields. By default - all are selected
+      #  expand: field3(sub1, sub2, sub3),field4 # go deep by expanding specific fields.
+      - name: Offers
+        description: search for an offer by a given filter
+        query: query.offers
+      - name: Offer Chains
+        description: get an offer chain by offer chain id
+        query: query.offerChain
+      - name: JKIDD User Information
+        description: get user information from jsonkidd by regid
+        query: query.jkidd
+      - name: Promos
+        description: search for a promo by a given filter
+        query: query.promos
+      - name: ProductInfo
+        description: search for product info based on a zipcode
+        query: query.productInfo
